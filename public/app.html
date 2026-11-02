@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>IA Entreprise</title>
+<meta name="theme-color" content="#0b0b0c">
+<style>
+:root{--bg:#0b0b0c;--card:#1b1b1e;--tx:#f4f1ea;--mu:#9d9da2;--gold:#d4a937;--g2:#f0d27a;--bd:#2a2a2e}
+@media(prefers-color-scheme:light){:root{--bg:#f7f5f0;--card:#fff;--tx:#18181a;--mu:#5b5b60;--gold:#a67c12;--g2:#c89b2a;--bd:#ddd8cb}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font:16px/1.5 system-ui,-apple-system,Roboto,sans-serif;background:var(--bg);color:var(--tx)}
+#v{padding:calc(env(safe-area-inset-top) + 14px) 16px 100px;max-width:640px;margin:auto}
+h1{font-size:1.35rem;margin:.3em 0}h2{font-size:1.1rem;margin:22px 0 10px}p{margin:.3em 0}
+.hero{text-align:center;padding:18px 0}.lg{width:96px;height:96px;object-fit:contain;background:#fff;border-radius:22px;padding:6px}
+.hero p{color:var(--mu);font-size:.85rem}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tiles>*{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:16px;text-align:left;color:var(--tx);text-decoration:none;font:inherit;display:flex;flex-direction:column;gap:2px;font-size:1.6rem}
+.tiles b{font-size:1rem}.tiles small{font-size:.75rem;color:var(--mu)}.tiles .pr{background:linear-gradient(135deg,var(--g2),var(--gold));color:#0b0b0c}.tiles .pr small{color:#333}
+.hs{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px}.hs img{height:150px;width:210px;object-fit:cover;border-radius:14px;scroll-snap-align:start;flex:none}
+.chips{display:flex;gap:8px;overflow-x:auto;margin:0 -16px 12px;padding:0 16px}.chips button{flex:none;border:1px solid var(--bd);background:none;color:var(--tx);padding:7px 14px;border-radius:99px;font:inherit;font-size:.85rem}.chips .on{background:var(--gold);color:#0b0b0c;border-color:var(--gold)}
+.gr{display:grid;grid-template-columns:1fr 1fr;gap:10px}.gr figure{margin:0;background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--bd)}.gr img{width:100%;aspect-ratio:1;object-fit:cover;display:block}.gr figcaption{padding:8px 10px;font-size:.78rem}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:14px;font:600 1rem inherit;background:linear-gradient(135deg,var(--g2),var(--gold));color:#0b0b0c;margin-top:12px;text-align:center;text-decoration:none}.btn.o{background:none;border:1px solid var(--gold);color:var(--tx)}
+label{display:block;font-size:.82rem;color:var(--mu);margin:12px 0 4px}
+input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font:inherit}
+.opt{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--bd);color:var(--tx);border-radius:14px;padding:14px;margin:8px 0;font:inherit}
+.bar{display:flex;gap:6px;margin:6px 0 14px}.bar i{flex:1;height:5px;border-radius:3px;background:var(--bd)}.bar i.on{background:var(--gold)}
+.ph{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.ph div{position:relative}.ph img{width:76px;height:76px;object-fit:cover;border-radius:10px}.ph button{position:absolute;top:-6px;right:-6px;border:0;border-radius:50%;width:22px;height:22px;background:#c0392b;color:#fff}
+.note{background:var(--card);border-left:3px solid var(--gold);border-radius:8px;padding:10px 12px;font-size:.85rem;margin-top:12px}.err{color:#e5533d;font-weight:600;margin-top:10px}
+.hi{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;margin:8px 0}.hi small{color:var(--mu)}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;background:none;border:0;color:var(--mu);padding:8px 2px;font:inherit;font-size:.65rem;display:flex;flex-direction:column;align-items:center}nav button span{font-size:1.3rem}nav .on{color:var(--gold)}
+#vw{position:fixed;inset:0;background:#000;z-index:20;display:none}#vw.s{display:block}
+.pg{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory}.pg>div{flex:none;width:100%;scroll-snap-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 12px 120px;color:#fff;text-align:center}.pg img{max-width:100%;max-height:68vh;object-fit:contain}
+#vx{position:absolute;top:calc(env(safe-area-inset-top) + 10px);right:14px;font-size:2rem;background:none;border:0;color:#fff;z-index:2}
+#vb{position:absolute;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom) + 18px);z-index:2}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main id="v"></main>
+<nav id="nav"></nav>
+<div id="vw"><button id="vx" aria-label="Fermer">×</button><div class="pg" id="pg"></div><div id="vb"><button class="btn" id="vs">Je veux la même chose</button></div></div>
+<input type="file" id="fi" accept="image/*" multiple hidden>
+<script src="config.js"></script>
+<script>
+const S=SITE,$=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const TABS=[["home","🏠","Accueil"],["gal","🖼️","Réalisations"],["order","🛒","Commander"],["prob","⚠️","Problème"],["hist","🗂️","Mes demandes"]];
+const TYPES=["Enseigne lumineuse","Totem publicitaire","Signalétique","Revêtement Allucobond","Cartes de visite","Flyers","Tee-shirts et polos","Gadgets publicitaires","Branding et logo","Autre prestation"];
+const CATS={tous:"Tous",enseignes:"Enseignes",totems:"Totems",allucobond:"Allucobond",cartes:"Cartes de visite",flyers:"Flyers",textile:"Tee-shirts",gadgets:"Gadgets",branding:"Branding"};
+const wa="https://wa.me/"+S.whatsapp+"?text="+encodeURIComponent(S.waMessage);
+let tab="home",gf="tous",vl=[],o={step:0,f:{},files:[]},p={f:{},files:[]},cur=o,done="";
+const H=()=>{try{return JSON.parse(localStorage.getItem("iae-h")||"[]")}catch(e){return[]}};
+$("#nav").innerHTML=TABS.map(t=>`<button data-go="${t[0]}"><span>${t[1]}</span>${t[2]}</button>`).join("");
+function go(t){tab=t;cur=t=="prob"?p:o;draw(true)}
+function draw(top){const y=scrollY;$("#v").innerHTML=V[tab]();document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==tab||(tab=="done"&&b.dataset.go=="hist")));scrollTo(0,top?0:y)}
+const fld=(k,l,t="text",req)=>`<label>${l}${req?" *":""}</label><input data-k="${k}" type="${t}" value="${esc(cur.f[k])}">`;
+const ta=(k,l)=>`<label>${l}</label><textarea rows="3" data-k="${k}">${esc(cur.f[k])}</textarea>`;
+const photos=()=>`<button class="btn o" data-a="pick">📷 Ajouter des photos (max 5)</button><div class="ph">${cur.files.map((f,i)=>`<div><img src="${URL.createObjectURL(f)}" alt=""><button data-a="rm:${i}">×</button></div>`).join("")}</div>`;
+const locB=()=>`<button class="btn o" data-a="loc">📍 ${cur.loc?"Localisation ajoutée ✓":"Ajouter ma localisation"}</button>${cur.loc?`<p class="note">Position enregistrée (±${Math.round(cur.loc.acc)} m)</p>`:""}${cur.locErr?`<p class="err">${cur.locErr}</p>`:""}`;
+const coords=()=>fld("nom","Nom et prénom","text",1)+fld("tel","Téléphone","tel",1)+fld("email","E-mail","email",1)+fld("ville","Ville / quartier","text",1);
+const V={
+home(){vl=GALERIE.slice(0,10);return`<div class="hero"><img class="lg" src="${S.logo}" alt=""><h1>${esc(S.nom)}</h1><p>${esc(S.slogan)}</p></div>
+<div class="tiles"><button class="pr" data-go="order">🛒<b>Commander</b><small>Devis en quelques étapes</small></button><button data-go="prob">⚠️<b>Signaler un problème</b><small>Photo + localisation</small></button>
+<a href="tel:${S.tel.replace(/\s/g,"")}">📞<b>Appeler</b><small>${esc(S.tel)}</small></a><a href="${wa}" target="_blank" rel="noopener">💬<b>WhatsApp</b><small>Réponse rapide</small></a></div>
+<h2>Nos réalisations</h2><div class="hs">${vl.map((g,i)=>`<img loading="lazy" src="${g.img}" alt="${esc(g.titre)}" data-v="${i}">`).join("")}</div>
+<h2>Nous trouver</h2><div class="hi">${esc(S.adresse)}<br>${esc(S.postal)}<br><small>${S.horaires.map(esc).join(" · ")}</small></div>`},
+gal(){vl=GALERIE.filter(g=>gf=="tous"||g.cat==gf);return`<h1>Réalisations</h1><div class="chips">${Object.entries(CATS).map(([k,v])=>`<button class="${k==gf?"on":""}" data-a="f:${k}">${v}</button>`).join("")}</div><div class="gr">${vl.map((g,i)=>`<figure data-v="${i}"><img loading="lazy" src="${g.img}" alt="${esc(g.titre)}"><figcaption>${esc(g.titre)}</figcaption></figure>`).join("")||"<p>Bientôt de nouvelles photos.</p>"}</div>`},
+order(){const s=o.step,bar=`<div class="bar">${[0,1,2,3].map(i=>`<i class="${i<=s?"on":""}"></i>`).join("")}</div>`;let b="";
+if(s==0)return`<h1>Que souhaitez-vous ?</h1>${bar}${TYPES.map((t,i)=>`<button class="opt" data-a="t:${i}">${t}</button>`).join("")}`;
+if(s==1)b=`<h1>${esc(o.type)}</h1>`+fld("texte","Nom ou texte à inscrire")+fld("dim","Dimensions souhaitées (ex. 3 m x 0,6 m)")+fld("couleurs","Couleurs souhaitées")+ta("desc","Décrivez votre besoin")+`<button class="btn" data-a="next">Suivant</button>`;
+if(s==2)b=`<h1>Photos et lieu</h1><p style="color:var(--mu)">Une photo du local ou de votre logo nous aide à chiffrer plus juste.</p>${photos()}${locB()}<button class="btn" data-a="next">Suivant</button>`;
+if(s==3)b=`<h1>Vos coordonnées</h1>${coords()}<div class="note">Toute réalisation nécessitant une maquette personnalisée est facturée ${esc(S.prixMaquette)}, intégralement déduite de la facture si vous validez le projet.</div><label style="display:flex;gap:10px;align-items:center;color:var(--tx)"><input type="checkbox" data-k="ok" style="width:22px;height:22px" ${o.f.ok?"checked":""}> J’ai pris connaissance de cette condition</label><div class="err" id="msg"></div><button class="btn" id="sb" data-a="send">Envoyer la commande</button>`;
+return bar+b+`<button class="btn o" data-a="prev">Retour</button>`},
+prob(){return`<h1>Signaler un problème</h1><p style="color:var(--mu)">Photo + localisation : nous venons directement chez vous.</p>
+${fld("enseigne","Votre enseigne ou commande (nom du commerce)","text",1)}
+<label>Type de problème *</label><select data-k="probleme">${["Ne s’allume plus","Une partie ne s’allume pas","Lettres cassées ou tombées","Enseigne qui clignote","Dégâts (pluie, vent, choc)","Autre"].map(x=>`<option ${p.f.probleme==x?"selected":""}>${x}</option>`).join("")}</select>
+${ta("desc","Décrivez le problème")}${photos()}${locB()}${coords()}<div class="err" id="msg"></div><button class="btn" id="sb" data-a="send">Envoyer le signalement</button>`},
+hist(){const h=H();return`<h1>Mes demandes</h1>${h.map(x=>`<div class="hi"><b>${esc(x.ref)}</b> · ${esc(x.type)}<br><small>${esc(x.date)}</small><a class="btn o" target="_blank" rel="noopener" href="https://wa.me/${S.whatsapp}?text=${encodeURIComponent("Bonjour, suivi de ma demande "+x.ref)}">Demander des nouvelles</a></div>`).join("")||"<p style='color:var(--mu)'>Aucune demande envoyée pour le moment.</p>"}`},
+done(){return`<div class="hero"><div style="font-size:3rem">✅</div><h1>Demande envoyée</h1><p>Votre référence</p><h1 class="gold" style="color:var(--gold)">${esc(done)}</h1><p>Nous vous recontactons très vite.</p></div><a class="btn" target="_blank" rel="noopener" href="https://wa.me/${S.whatsapp}?text=${encodeURIComponent("Bonjour, ma demande "+done)}">Confirmer sur WhatsApp</a><button class="btn o" data-go="home">Retour à l’accueil</button>`}};
+// visionneuse
+let vi=0;
+function openV(i){vi=i;$("#pg").innerHTML=vl.map(g=>`<div><img src="${g.img}" alt="${esc(g.titre)}"><h3>${esc(g.titre)}</h3><p>${esc(g.desc||"")}</p></div>`).join("");$("#vw").classList.add("s");$("#pg").scrollLeft=i*innerWidth;$("#pg").onscroll=()=>{vi=Math.round($("#pg").scrollLeft/innerWidth)}}
+$("#vx").onclick=()=>$("#vw").classList.remove("s");
+$("#vs").onclick=()=>{o={step:1,f:{},files:[],type:"Enseigne lumineuse"};const g=vl[vi];o.f.desc="Je souhaite une réalisation comme : "+g.titre;$("#vw").classList.remove("s");tab="order";cur=o;draw(true)};
+// géoloc
+function getLoc(){cur.locErr="";navigator.geolocation?navigator.geolocation.getCurrentPosition(r=>{cur.loc={lat:r.coords.latitude,lng:r.coords.longitude,acc:r.coords.accuracy,link:`https://www.google.com/maps?q=${r.coords.latitude},${r.coords.longitude}`};draw()},()=>{cur.locErr="Localisation refusée ou indisponible. Activez-la dans les réglages.";draw()},{enableHighAccuracy:true,timeout:15000}):(cur.locErr="Localisation non disponible.",draw())}
+// compression
+const comp=(f,m,q)=>new Promise(r=>{const i=new Image();i.onload=()=>{const k=Math.min(1,m/Math.max(i.width,i.height)),c=document.createElement("canvas");c.width=i.width*k;c.height=i.height*k;c.getContext("2d").drawImage(i,0,0,c.width,c.height);r(c.toDataURL("image/jpeg",q).split(",")[1])};i.onerror=()=>r(null);i.src=URL.createObjectURL(f)});
+async function send(){const m=$("#msg"),f=cur.f,isP=cur===p;m.textContent="";
+if(!f.nom||!f.tel||!f.email||!/^\S+@\S+\.\S+$/.test(f.email)||!f.ville||(isP&&!f.enseigne)){m.textContent="Merci de compléter les champs obligatoires (*).";return}
+if(!isP&&!f.ok){m.textContent="Veuillez cocher la case de confirmation.";return}
+if(!S.apiBase){m.textContent="Configuration manquante (apiBase). Contactez-nous par WhatsApp.";return}
+const b=$("#sb");b.disabled=true;b.textContent="Envoi en cours…";
+const d={...f,type:isP?"SIGNALEMENT PROBLÈME":cur.type};delete d.ok;if(isP&&!d.probleme)d.probleme="Ne s’allume plus";if(cur.loc)d.localisation=cur.loc.link;
+let fl=[];for(const[mx,q]of[[1280,.7],[900,.55],[640,.45]]){fl=[];let t=0;for(let i=0;i<cur.files.length;i++){const x=await comp(cur.files[i],mx,q);if(x){fl.push({nom:"photo"+(i+1)+".jpg",type:"image/jpeg",data:x});t+=x.length*.75}}if(t<3.3e6)break}
+d.fichiers=fl;
+try{const r=await fetch(S.apiBase+"/api/commande",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)}),j=await r.json();if(!r.ok)throw new Error(j.error||"Erreur");
+const h=H();h.unshift({ref:j.ref,type:d.type,date:new Date().toLocaleString("fr-FR")});try{localStorage.setItem("iae-h",JSON.stringify(h.slice(0,50)))}catch(e){}
+done=j.ref;if(isP)p={f:{},files:[]};else o={step:0,f:{},files:[]};tab="done";draw(true)}
+catch(e){m.textContent="Échec de l’envoi ("+e.message+"). Réessayez ou écrivez-nous sur WhatsApp.";b.disabled=false;b.textContent="Réessayer"}}
+// événements
+document.addEventListener("click",e=>{const t=e.target.closest("[data-go],[data-v],[data-a]");if(!t)return;
+if(t.dataset.go)return go(t.dataset.go);if(t.dataset.v!=null)return openV(+t.dataset.v);
+const[a,x]=t.dataset.a.split(":");
+if(a=="f"){gf=x;draw(true)}else if(a=="t"){o.type=TYPES[+x];o.step=1;draw(true)}else if(a=="next"){o.step++;draw(true)}else if(a=="prev"){o.step=Math.max(0,o.step-1);draw(true)}
+else if(a=="pick")$("#fi").click();else if(a=="rm"){cur.files.splice(+x,1);draw()}else if(a=="loc")getLoc();else if(a=="send")send()});
+document.addEventListener("input",e=>{const k=e.target.dataset.k;if(k)cur.f[k]=e.target.type=="checkbox"?e.target.checked:e.target.value});
+$("#fi").onchange=e=>{for(const f of e.target.files)if(cur.files.length<5)cur.files.push(f);e.target.value="";draw()};
+draw(true);
+</script>
+</body>
+</html>
